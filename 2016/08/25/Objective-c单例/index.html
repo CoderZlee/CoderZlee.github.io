@@ -84,15 +84,25 @@
 
 
 
-<meta name="description" content="iOS，golang">
-<meta property="og:type" content="website">
-<meta property="og:title" content="张力的个人博客">
-<meta property="og:url" content="http://zlee.me/index.html">
+<meta name="description" content="关于系统单例12//系统单例同步数据[[NSUserDefaults standardUserDefaults] synchronize];
+上面这段代码是系统同中的代码接口，为啥要把这句代码给出来呢，熟悉一点设计模式的都知道自己写的接口最好是跟系统接口的写法类似，这样才方便别人调用你的接口，减少很多沟通成本.在这就不多说，举个例子就好。
+
+补充一点：系统单例(NSUserdefaults)不能存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Objective-c单例">
+<meta property="og:url" content="http://zlee.me/2016/08/25/Objective-c单例/index.html">
 <meta property="og:site_name" content="张力的个人博客">
-<meta property="og:description" content="iOS，golang">
+<meta property="og:description" content="关于系统单例12//系统单例同步数据[[NSUserDefaults standardUserDefaults] synchronize];
+上面这段代码是系统同中的代码接口，为啥要把这句代码给出来呢，熟悉一点设计模式的都知道自己写的接口最好是跟系统接口的写法类似，这样才方便别人调用你的接口，减少很多沟通成本.在这就不多说，举个例子就好。
+
+补充一点：系统单例(NSUserdefaults)不能存">
+<meta property="og:updated_time" content="2016-08-25T09:15:54.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="张力的个人博客">
-<meta name="twitter:description" content="iOS，golang">
+<meta name="twitter:title" content="Objective-c单例">
+<meta name="twitter:description" content="关于系统单例12//系统单例同步数据[[NSUserDefaults standardUserDefaults] synchronize];
+上面这段代码是系统同中的代码接口，为啥要把这句代码给出来呢，熟悉一点设计模式的都知道自己写的接口最好是跟系统接口的写法类似，这样才方便别人调用你的接口，减少很多沟通成本.在这就不多说，举个例子就好。
+
+补充一点：系统单例(NSUserdefaults)不能存">
 
 
 
@@ -113,9 +123,9 @@
 
 
 
-  <link rel="canonical" href="http://zlee.me/"/>
+  <link rel="canonical" href="http://zlee.me/2016/08/25/Objective-c单例/"/>
 
-  <title> 张力的个人博客 </title>
+  <title> Objective-c单例 | 张力的个人博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
@@ -136,9 +146,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -205,9 +213,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -227,10 +235,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/08/25/Objective-c单例/" itemprop="url">
-                  Objective-c单例
-                </a>
+                Objective-c单例
               
             
           </h1>
@@ -270,9 +275,7 @@
       
 
       
-        
-          
-            <h4 id="关于系统单例"><a href="#关于系统单例" class="headerlink" title="关于系统单例"></a>关于系统单例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//系统单例同步数据</div><div class="line">[[NSUserDefaults standardUserDefaults] synchronize];</div></pre></td></tr></table></figure>
+        <h4 id="关于系统单例"><a href="#关于系统单例" class="headerlink" title="关于系统单例"></a>关于系统单例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//系统单例同步数据</div><div class="line">[[NSUserDefaults standardUserDefaults] synchronize];</div></pre></td></tr></table></figure>
 <p>上面这段代码是系统同中的代码接口，为啥要把这句代码给出来呢，熟悉一点设计模式的都知道自己写的接口最好是跟系统接口的写法类似，这样才方便别人调用你的接口，减少很多沟通成本.在这就不多说，举个例子就好。</p>
 <blockquote>
 <p>补充一点：系统单例(NSUserdefaults)不能存放自定义对象，只能存放OC系统的对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">存值和取值都很简单</div><div class="line">单例取值</div><div class="line">NSDictionary * dic = [[NSUserDefaults standardUserDefaults] objectForKey:@&quot;user”];</div><div class="line">单例存值</div><div class="line">[[NSUserDefaults standardUserDefaults] setObject:dic forKey:@&quot;user&quot;];</div></pre></td></tr></table></figure></p>
@@ -287,16 +290,20 @@
 </ul>
 <p>需要什么功能只需要給这个类增加方法或者属性就好。</p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
@@ -304,114 +311,32 @@
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/08/15/OC中__bridge/" rel="next" title="Objective-c中__bridge">
+                <i class="fa fa-chevron-left"></i> Objective-c中__bridge
+              </a>
             
-              
-                
-                <a class="post-title-link" href="/2016/08/15/OC中__bridge/" itemprop="url">
-                  Objective-c中__bridge
-                </a>
-              
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-08-15T19:33:22+08:00" content="2016-08-15">
-              2016-08-15
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <h3 id="bridge只做类型转换，但是不修改对象（内存）管理权；"><a href="#bridge只做类型转换，但是不修改对象（内存）管理权；" class="headerlink" title="__bridge只做类型转换，但是不修改对象（内存）管理权；"></a>__bridge只做类型转换，但是不修改对象（内存）管理权；</h3><p>__bridge_retained（也可以使用CFBridgingRetain）将Objective-C的对象转换为Core Foundation的对象，同时将对象（内存）的管理权交给我们，后续需要使用CFRelease或者相关方法来释放对象；</p>
-<p>__bridge_transfer（也可以使用CFBridgingRelease）将Core Foundation的对象转换为Objective-C的对象，同时将对象（内存）的管理权交给ARC</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -419,6 +344,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -438,8 +367,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/icon.png"
@@ -475,6 +413,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于系统单例"><span class="nav-number">1.</span> <span class="nav-text">关于系统单例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义单例"><span class="nav-number">2.</span> <span class="nav-text">自定义单例</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -578,6 +527,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
