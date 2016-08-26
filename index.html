@@ -180,12 +180,32 @@
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
           </a>
         </li>
       
@@ -248,6 +268,25 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Objective-c/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-c</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -279,7 +318,7 @@
       
         
           
-            <h4 id="关于系统单例"><a href="#关于系统单例" class="headerlink" title="关于系统单例"></a>关于系统单例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//系统单例同步数据</div><div class="line">[[NSUserDefaults standardUserDefaults] synchronize];</div></pre></td></tr></table></figure>
+            <h4 id="关于系统单例"><a href="#关于系统单例" class="headerlink" title="关于系统单例"></a>关于系统单例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// 系统单例同步数据</div><div class="line">[[NSUserDefaults standardUserDefaults] synchronize];</div></pre></td></tr></table></figure>
 <p>上面这段代码是系统同中的代码接口，为啥要把这句代码给出来呢，熟悉一点设计模式的都知道自己写的接口最好是跟系统接口的写法类似，这样才方便别人调用你的接口，减少很多沟通成本.在这就不多说，举个例子就好。</p>
 <blockquote>
 <p>补充一点：系统单例(NSUserdefaults)不能存放自定义对象，只能存放OC系统的对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">存值和取值都很简单</div><div class="line">单例取值</div><div class="line">NSDictionary * dic = [[NSUserDefaults standardUserDefaults] objectForKey:@&quot;user”];</div><div class="line">单例存值</div><div class="line">[[NSUserDefaults standardUserDefaults] setObject:dic forKey:@&quot;user&quot;];</div></pre></td></tr></table></figure></p>
@@ -361,6 +400,25 @@
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Objective-c/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-c</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
@@ -470,7 +528,21 @@
           </div>
 
           
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
           
 
         </nav>
