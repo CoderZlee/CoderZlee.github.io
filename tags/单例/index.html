@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="__bridge," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,19 +84,15 @@
 
 
 
-<meta name="description" content="__bridge只做类型转换，但是不修改对象（内存）管理权；__bridge_retained（也可以使用CFBridgingRetain）将Objective-C的对象转换为Core Foundation的对象，同时将对象（内存）的管理权交给我们，后续需要使用CFRelease或者相关方法来释放对象；
-__bridge_transfer（也可以使用CFBridgingRelease）将Core">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Objective-c中__bridge">
-<meta property="og:url" content="http://zlee.me/2016/08/15/OC中__bridge/index.html">
+<meta name="description" content="如果走到尽头，就翻墙而过">
+<meta property="og:type" content="website">
+<meta property="og:title" content="张力的个人博客">
+<meta property="og:url" content="http://zlee.me/tags/单例/index.html">
 <meta property="og:site_name" content="张力的个人博客">
-<meta property="og:description" content="__bridge只做类型转换，但是不修改对象（内存）管理权；__bridge_retained（也可以使用CFBridgingRetain）将Objective-C的对象转换为Core Foundation的对象，同时将对象（内存）的管理权交给我们，后续需要使用CFRelease或者相关方法来释放对象；
-__bridge_transfer（也可以使用CFBridgingRelease）将Core">
-<meta property="og:updated_time" content="2016-08-26T02:42:21.000Z">
+<meta property="og:description" content="如果走到尽头，就翻墙而过">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Objective-c中__bridge">
-<meta name="twitter:description" content="__bridge只做类型转换，但是不修改对象（内存）管理权；__bridge_retained（也可以使用CFBridgingRetain）将Objective-C的对象转换为Core Foundation的对象，同时将对象（内存）的管理权交给我们，后续需要使用CFRelease或者相关方法来释放对象；
-__bridge_transfer（也可以使用CFBridgingRelease）将Core">
+<meta name="twitter:title" content="张力的个人博客">
+<meta name="twitter:description" content="如果走到尽头，就翻墙而过">
 
 
 
@@ -117,9 +113,9 @@ __bridge_transfer（也可以使用CFBridgingRelease）将Core">
 
 
 
-  <link rel="canonical" href="http://zlee.me/2016/08/15/OC中__bridge/"/>
+  <link rel="canonical" href="http://zlee.me/tags/单例/"/>
 
-  <title> Objective-c中__bridge | 张力的个人博客 </title>
+  <title> 标签: 单例 | 张力的个人博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -140,7 +136,7 @@ __bridge_transfer（也可以使用CFBridgingRelease）将Core">
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -228,149 +224,46 @@ __bridge_transfer（也可以使用CFBridgingRelease）将Core">
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                Objective-c中__bridge
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-15T19:33:22+08:00" content="2016-08-15">
-              2016-08-15
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Objective-c/" itemprop="url" rel="index">
-                    <span itemprop="name">Objective-c</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/15/OC中__bridge/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/15/OC中__bridge/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h3 id="bridge只做类型转换，但是不修改对象（内存）管理权；"><a href="#bridge只做类型转换，但是不修改对象（内存）管理权；" class="headerlink" title="__bridge只做类型转换，但是不修改对象（内存）管理权；"></a>__bridge只做类型转换，但是不修改对象（内存）管理权；</h3><p>__bridge_retained（也可以使用CFBridgingRetain）将Objective-C的对象转换为Core Foundation的对象，同时将对象（内存）的管理权交给我们，后续需要使用CFRelease或者相关方法来释放对象；</p>
-<p>__bridge_transfer（也可以使用CFBridgingRelease）将Core Foundation的对象转换为Objective-C的对象，同时将对象（内存）的管理权交给ARC</p>
-
-      
+  <div id="posts" class="posts-collapse">
+    <div class="collection-title">
+      <h2 >
+        单例
+        <small>标签</small>
+      </h2>
     </div>
 
-    <div>
+    
       
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
         
-
-      
-    </div>
-
-    <div>
-      
+            <a class="post-title-link" href="/2016/08/25/Objective-c单例/" itemprop="url">
+              
+                <span itemprop="name">Objective-c单例</span>
+              
+            </a>
         
+      </h1>
 
-      
-    </div>
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2016-08-25T17:15:20+08:00"
+              content="2016-08-25" >
+          08-25
+        </time>
+      </div>
 
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/bridge/" rel="tag">#__bridge</a>
-          
-        </div>
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/25/Objective-c单例/" rel="prev" title="Objective-c单例">
-                Objective-c单例 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
+    </header>
   </article>
 
 
-
-    <div class="post-spread">
-      
-    </div>
+    
   </div>
+
+  
 
 
           </div>
@@ -378,14 +271,6 @@ __bridge_transfer（也可以使用CFBridgingRelease）将Core">
 
 
           
-  <div class="comments" id="comments">
-    
-      <div class="ds-thread" data-thread-key="2016/08/15/OC中__bridge/"
-           data-title="Objective-c中__bridge" data-url="http://zlee.me/2016/08/15/OC中__bridge/">
-      </div>
-    
-  </div>
-
 
         </div>
         
@@ -405,17 +290,8 @@ __bridge_transfer（也可以使用CFBridgingRelease）将Core">
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/icon.png"
@@ -465,17 +341,6 @@ __bridge_transfer（也可以使用CFBridgingRelease）将Core">
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#bridge只做类型转换，但是不修改对象（内存）管理权；"><span class="nav-number">1.</span> <span class="nav-text">__bridge只做类型转换，但是不修改对象（内存）管理权；</span></a></li></ol></div>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -595,10 +460,6 @@ __bridge_transfer（也可以使用CFBridgingRelease）将Core">
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
-
-
 
   
 
