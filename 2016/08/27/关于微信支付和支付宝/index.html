@@ -84,25 +84,25 @@
 
 
 
-<meta name="description" content="微信支付iOS微信支付
+<meta name="description" content="关于支付微信支付iOS微信支付
 首先要申请APPID、partnerid
 把官方SDK导入到项目中，直接运行应该会报错
-1234Undefined symbols for architecture arm64Undefined symbols for architecture x86_64:&amp;quot;operator delete&amp;quot;, referenced from:+[WeChatApiUt">
+1234Undefined symbols for architecture arm64Undefined symbols for architecture x86_64:&amp;quot;operator delete&amp;quot;, referenced from:+[WeChatA">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于微信支付和支付宝">
 <meta property="og:url" content="http://zlee.me/2016/08/27/关于微信支付和支付宝/index.html">
 <meta property="og:site_name" content="张力的个人博客">
-<meta property="og:description" content="微信支付iOS微信支付
+<meta property="og:description" content="关于支付微信支付iOS微信支付
 首先要申请APPID、partnerid
 把官方SDK导入到项目中，直接运行应该会报错
-1234Undefined symbols for architecture arm64Undefined symbols for architecture x86_64:&amp;quot;operator delete&amp;quot;, referenced from:+[WeChatApiUt">
-<meta property="og:updated_time" content="2016-08-27T06:38:59.000Z">
+1234Undefined symbols for architecture arm64Undefined symbols for architecture x86_64:&amp;quot;operator delete&amp;quot;, referenced from:+[WeChatA">
+<meta property="og:updated_time" content="2016-09-02T07:22:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于微信支付和支付宝">
-<meta name="twitter:description" content="微信支付iOS微信支付
+<meta name="twitter:description" content="关于支付微信支付iOS微信支付
 首先要申请APPID、partnerid
 把官方SDK导入到项目中，直接运行应该会报错
-1234Undefined symbols for architecture arm64Undefined symbols for architecture x86_64:&amp;quot;operator delete&amp;quot;, referenced from:+[WeChatApiUt">
+1234Undefined symbols for architecture arm64Undefined symbols for architecture x86_64:&amp;quot;operator delete&amp;quot;, referenced from:+[WeChatA">
 
 
 
@@ -321,7 +321,7 @@
       
 
       
-        <h2 id="微信支付"><a href="#微信支付" class="headerlink" title="微信支付"></a>微信支付</h2><h3 id="iOS微信支付"><a href="#iOS微信支付" class="headerlink" title="iOS微信支付"></a>iOS微信支付</h3><ul>
+        <h1 id="关于支付"><a href="#关于支付" class="headerlink" title="关于支付"></a>关于支付</h1><h2 id="微信支付"><a href="#微信支付" class="headerlink" title="微信支付"></a>微信支付</h2><h3 id="iOS微信支付"><a href="#iOS微信支付" class="headerlink" title="iOS微信支付"></a>iOS微信支付</h3><ul>
 <li>首先要申请APPID、partnerid</li>
 <li><p>把官方SDK导入到项目中，直接运行应该会报错</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Undefined symbols for architecture arm64</div><div class="line">Undefined symbols for architecture x86_64:</div><div class="line">&quot;operator delete&quot;, referenced from:</div><div class="line">+[WeChatApiUtil EncodeBase64:] in libWeChatSDK.a(WeChatApiUtil.o)</div></pre></td></tr></table></figure>
@@ -367,8 +367,24 @@
 </li>
 </ul>
 </li>
-<li><p>如果大家有遇到其他什么比较麻烦一点的问题，欢迎分享一下</p>
+</ul>
+<h3 id="即时到账-API地址"><a href="#即时到账-API地址" class="headerlink" title="即时到账 API地址"></a>即时到账 <a href="https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.QwdYnQ&amp;treeId=62&amp;articleId=104743&amp;docType=1" target="_blank" rel="external">API地址</a></h3><p><code>由于本人是做goalng的，给出的都是goalng的实现方案，大众语言官方都有sdk</code></p>
+<ul>
+<li>使用场景我就不做过多的说明了吧(H5跳转到支付宝,PC和Mobile通用，但是mobile的浏览器不打开支付宝app(app内支付会跳到支付宝app))</li>
+<li>这个借口主要谈一下签名吧(MD5),跟微信的类似</li>
+<li>直接上代码<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">func md5Sign(query map[string]string) &#123;</div><div class="line">	kvList := make([]kv, 0, len(query))</div><div class="line">	for k, v := range query &#123;</div><div class="line">		if v == &quot;&quot; &#123;</div><div class="line">			delete(query, k)</div><div class="line">			continue</div><div class="line">		&#125;</div><div class="line">		kvList = append(kvList, kv&#123;</div><div class="line">			K: k,</div><div class="line">			V: v,</div><div class="line">		&#125;)</div><div class="line">	&#125;</div><div class="line">	sort.Sort(kvSorter(kvList))</div><div class="line">	toEncodeList := make([]string, len(kvList))</div><div class="line">	for i, data := range kvList &#123;</div><div class="line">		toEncodeList[i] = data.K + `=` + data.V</div><div class="line">	&#125;</div><div class="line">	toSign := strings.Join(toEncodeList, &quot;&amp;&quot;)</div><div class="line">	signed := kmgCrypto.Md5Hex([]byte(toSign + Key))//key是商户的设置的密钥</div><div class="line">	query[&quot;sign_type&quot;] = &quot;MD5&quot;</div><div class="line">	query[&quot;sign&quot;] = signed</div><div class="line">	return</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
+</ul>
+<h3 id="手机网站支付API地址"><a href="#手机网站支付API地址" class="headerlink" title="手机网站支付API地址"></a>手机网站支付<a href="https://doc.open.alipay.com/doc2/detail.htm?treeId=203&amp;articleId=105463&amp;docType=1" target="_blank" rel="external">API地址</a></h3><ul>
+<li>比即时到账在手机浏览器方便很多(会直接打开支付宝app)，更好的用户体验</li>
+<li>也还是主要谈一下签名的方式(RSA)</li>
+<li>上代码<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">func rsaSign(query map[string]string) &#123;</div><div class="line">	query[&quot;sign_type&quot;] = &quot;RSA&quot;</div><div class="line">	kvList := make([]kv, 0, len(query))</div><div class="line">	for k, v := range query &#123;</div><div class="line">		if v == &quot;&quot; &#123;</div><div class="line">			delete(query, k)</div><div class="line">			continue</div><div class="line">		&#125;</div><div class="line">		kvList = append(kvList, kv&#123;</div><div class="line">			K: k,</div><div class="line">			V: v,</div><div class="line">		&#125;)</div><div class="line">	&#125;</div><div class="line">	sort.Sort(kvSorter(kvList))</div><div class="line">	toEncodeList := make([]string, len(kvList))</div><div class="line">	for i, data := range kvList &#123;</div><div class="line">		toEncodeList[i] = data.K + `=` + data.V</div><div class="line">	&#125;</div><div class="line">	toSign := strings.Join(toEncodeList, &quot;&amp;&quot;)</div><div class="line">	s,err := RsaWithSha1PKCS1OpensslSignBase64(PrivateKey),[]byte(toSign))// privateKey为用户设置的私钥(必须是私钥的格式)</div><div class="line">	if err != nil &#123;</div><div class="line">		panic(err)</div><div class="line">	&#125;</div><div class="line">	query[&quot;sign&quot;] = s</div><div class="line">	return</div><div class="line">&#125;</div><div class="line">func RsaWithSha1PKCS1OpensslSignBase64(PKCS1privateKey []byte, msg []byte) (s string, err error) &#123;</div><div class="line">	block, _ := pem.Decode(PKCS1privateKey)</div><div class="line">	private, err := x509.ParsePKCS1PrivateKey(block.Bytes)</div><div class="line">	if err != nil &#123;</div><div class="line">		return</div><div class="line">	&#125;</div><div class="line">	b, err := RsaOpensslSign(private, crypto.SHA1, msg)</div><div class="line">	if err != nil &#123;</div><div class="line">		return</div><div class="line">	&#125;</div><div class="line">	return base64.StdEncoding.EncodeToString(b), nil</div><div class="line">&#125;</div><div class="line">func RsaOpensslSign(pub *rsa.PrivateKey, h crypto.Hash, msg []byte) (s []byte, err error) &#123;</div><div class="line">	h1 := h.New()</div><div class="line">	h1.Write(msg)</div><div class="line">	digest := h1.Sum(nil)</div><div class="line">	s, err = rsa.SignPKCS1v15(nil, pub, h, digest)</div><div class="line">	return</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>####其他东西都需要自己封装比较麻烦的地方都已经给出了解决方案，有空我会在github上把封装的都丢上去(golang端)。</p>
+<ul>
+<li>如果大家有遇到其他什么比较麻烦一点的问题,欢迎分享一下</li>
+<li>或者有什么需求欢迎在下面提出来。</li>
 </ul>
 
       
@@ -489,7 +505,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -527,7 +543,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#微信支付"><span class="nav-number">1.</span> <span class="nav-text">微信支付</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS微信支付"><span class="nav-number">1.1.</span> <span class="nav-text">iOS微信支付</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统一下单-golang服务端"><span class="nav-number">1.2.</span> <span class="nav-text">统一下单(golang服务端)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#支付宝"><span class="nav-number">2.</span> <span class="nav-text">支付宝</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS-Alipay"><span class="nav-number">2.1.</span> <span class="nav-text">iOS Alipay</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#关于支付"><span class="nav-number">1.</span> <span class="nav-text">关于支付</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#微信支付"><span class="nav-number">1.1.</span> <span class="nav-text">微信支付</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS微信支付"><span class="nav-number">1.1.1.</span> <span class="nav-text">iOS微信支付</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统一下单-golang服务端"><span class="nav-number">1.1.2.</span> <span class="nav-text">统一下单(golang服务端)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#支付宝"><span class="nav-number">1.2.</span> <span class="nav-text">支付宝</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS-Alipay"><span class="nav-number">1.2.1.</span> <span class="nav-text">iOS Alipay</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#即时到账-API地址"><span class="nav-number">1.2.2.</span> <span class="nav-text">即时到账 API地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手机网站支付API地址"><span class="nav-number">1.2.3.</span> <span class="nav-text">手机网站支付API地址</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
         </section>
