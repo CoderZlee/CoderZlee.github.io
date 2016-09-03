@@ -387,6 +387,154 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/03/关于OC中的内存管理/" itemprop="url">
+                  关于OC中的内存管理
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-03T14:59:48+08:00" content="2016-09-03">
+              2016-09-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/内存管理/" itemprop="url" rel="index">
+                    <span itemprop="name">内存管理</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/03/关于OC中的内存管理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/03/关于OC中的内存管理/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="关于OC中的内存管理"><a href="#关于OC中的内存管理" class="headerlink" title="关于OC中的内存管理"></a>关于OC中的内存管理</h1><h3 id="关于内存最常见的报错"><a href="#关于内存最常见的报错" class="headerlink" title="关于内存最常见的报错"></a>关于内存最常见的报错</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXC_BAD_ACCESS……(访问的一块坏内存（已经被回收、已经不可用的内存）  野指针错误)</div></pre></td></tr></table></figure>
+<p>相信开发者们在刚入门的时候最常见的错误应该是这个出现这个错误的原因一般是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1、僵尸对象：所占用内存已经被回收的对象，僵尸对象不能再使用。</div><div class="line">2、野指针：指向僵尸对象(不可用内存)的指针，给野指针发送消息会报错。</div><div class="line">3、空指针：没有指向任何东西的指针(存储的东西是nil，NULL，0)，给空指针发送消息不会报错。</div></pre></td></tr></table></figure></p>
+<p>这里要说明一点，局部变量存放的是栈区而不是堆区。</p>
+<h4 id="引用计数器"><a href="#引用计数器" class="headerlink" title="引用计数器"></a>引用计数器</h4><ul>
+<li>引用计数器占4个字节（当计数器为0的时候系统自动回收），生成对象的时候计数器默认为1。</li>
+<li>给对象发送一条retain消息，计数器值+1</li>
+<li>给对象发送一条release消息，计时器值-1</li>
+<li>把对象放到集合里面，对象的引用计数器会+1<h4 id="对象的销毁"><a href="#对象的销毁" class="headerlink" title="对象的销毁"></a>对象的销毁</h4></li>
+<li>当一个对象引用计数器值为0时，就会被销毁</li>
+<li>当一个对象被销毁时，系统会自动向对象发送一条dealloc消息。</li>
+<li>一般会重写dealloc方法，在这里释放相关资源，dealloc就像对象的遗言。</li>
+<li>一旦重写了dealloc方法，就必须调用[super dealloc]，并且放在最后面调用<h4 id="在MRC中常见方法的实现"><a href="#在MRC中常见方法的实现" class="headerlink" title="在MRC中常见方法的实现"></a>在MRC中常见方法的实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">set方法的实现</div><div class="line">- (void)setBook:(Book *)book</div><div class="line">&#123;</div><div class="line">if (book != _book) &#123;</div><div class="line">[_book release];</div><div class="line">_book = [book reatain];</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">dealloc方法的实现</div><div class="line">- (void)dealloc</div><div class="line">&#123;</div><div class="line">[_book release];</div><div class="line">[super dealloc];</div><div class="line">&#125;</div><div class="line">instancetype方法的实现</div><div class="line">- (instancetype)initWithBook:(Book *)book</div><div class="line">&#123;</div><div class="line">if (self = [super init]) &#123;</div><div class="line">_book = [book retain];</div><div class="line">&#125;</div><div class="line">return self;</div><div class="line">&#125;</div><div class="line">instancetype便利构造器方法的实现</div><div class="line">+ (instancetype)personWithBook:(Book *)book</div><div class="line">&#123;</div><div class="line">Person * person = [[Person alloc] initWithBook:book];</div><div class="line">return [person autorelease];// 滞后 -1</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="property的属性"><a href="#property的属性" class="headerlink" title="@property的属性"></a>@property的属性</h4><blockquote>
+<p>1.set方法内存管理相关的属性<br><em>retain：release旧值，retain新值（适用于OC对象类型）
+</em>assgin：直接赋值（默认，适用于非oc对象类型）//delegate(特殊)<br><em>copy ：release旧值，copy新值<br>2.是否要生成set方法
+</em>readwrite：同时生成setter和getter的声明、实现(默认)<br><em>readonly： 只会生成getter的声明、实现<br>3.多线程管理
+</em>nonatomic：性能高（一般用这个 ）<br><em>atomic   ：性能低（默认）<br>4.setter和getter方法的名称(重新定义方法名称)(一般只有判断返回BOOL类型的时候修改get方法的名称)
+</em>setter：决定了set方法的名称，一定要有个冒号 :<br>*getter：决定了get方法的名称(getter = isRich)<br>@property (nonatomic, assign, getter=isGood) BOOL good;<br>5.strong和weak<br>strong:强引用<br>weak :不能修饰C语言数据类型<br>6.copy和mutablecopy<br>copy:  针对不可变对象(NSString)，是浅拷贝(内存一样，是同一个东西，指针拷贝，地址拷贝，没有新对象产生),就和retain性质一样;针对可变对象(NSMutableString)，是深copy，但是返回不可变对象(NSString)。始终返回不可变。<br>mutablecopy:深拷贝(内容拷贝，有新对象产生)，且返回可变对象(NSMutableString)。都返回可变的对象。</p>
+</blockquote>
+<ul>
+<li>特殊的列子(delegate使用<code>weak</code>,block使用<code>copy</code>)</li>
+</ul>
+<h4 id="import-amp-class"><a href="#import-amp-class" class="headerlink" title="import&amp;@class"></a>import&amp;@class</h4><blockquote>
+<p>@class card 仅仅是告诉编译器，card是一个类(两边要相互引用的时候相互用class来引用)<br>1、在.h文件中用@class来声明类<br>2、在.m文件中#import来包含类的所有东西<br>与import的区别</p>
+<p>#import方式会包含被引用类的所有信息，包括被引用类的变量和方法；@class方式只是告诉编译器在A.h文件中 B *b 只是类的声明，具体这个类里有什么信息，这里不需要知道，等实现文件中真正要用到时，才会真正去查看B类中信息<br>如果有上百个头文件都#import了同一个文件，或者这些文件依次被#improt,那么一旦最开始的头文件稍有改动，后面引用到这个文件的所有类都需要重新编译一遍，这样的效率也是可想而知的，而相对来 讲，使用@class方式就不会出现这种问题了<br>在.m实现文件中，如果需要引用到被引用类的实体变量或者方法时，还需要使用#import方式引入被引用类</p>
+<h4 id="autorelease"><a href="#autorelease" class="headerlink" title="autorelease"></a>autorelease</h4><p>autorelease会将对象放到一个自动释放池中<br>当自动释放池被销毁时，会对池子里面的所有对象做一次release操作<br>Person *p = [[[Person alloc] init] autorelease];<br>@sutoreleasepoor{// 开始代表创建了释放池<br>}// 结束代表销毁释放池<br>autorelease的基本用法:<br>1、会将会向放到一个自动释放池中<br>2、当自动释放池被销毁时，会对池子里面的所有对象做一次release操作<br>3、 autorelease方法会返回对象本身<br>4、 调用完atuorelease对象后，对象的计数器不变<br>autorelease的好处:<br>1、不用再关心对象释放的时间<br>2、不用再关心什么时候调用release<br>autorelease的使用注意:<br>1、占用内存较大的对象不要随便使用autorelease<br>2、占用内存较小的对象使用autorelease，没有太大影响<br>自动释放池<br>1、在iOS程序运行过程中，会创建无数个池子。这些池子都是以栈结构存在（先进后出）<br>2、当一个对象调用autorelease方法时，会将这个对象放到栈顶的释放池</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/27/关于微信支付和支付宝/" itemprop="url">
                   关于微信支付和支付宝
                 </a>
@@ -845,7 +993,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -862,7 +1010,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
