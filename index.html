@@ -248,6 +248,145 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/03/OC中-property中的strong和copy/" itemprop="url">
+                  OC中@property中的strong和copy
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-03T15:26:28+08:00" content="2016-09-03">
+              2016-09-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/内存管理/" itemprop="url" rel="index">
+                    <span itemprop="name">内存管理</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/03/OC中-property中的strong和copy/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/03/OC中-property中的strong和copy/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="OC中-property中的strong和copy"><a href="#OC中-property中的strong和copy" class="headerlink" title="OC中@property中的strong和copy"></a>OC中@property中的strong和copy</h1><p>之所以要单独拿一篇文章出来写这个肯定是这个东西比较特别。</p>
+<ul>
+<li>首先谈一下copy和strong对应的setter是怎么写的<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">strong</div><div class="line">- (void)setName:(NSString *)name</div><div class="line">&#123;</div><div class="line">    _name = name;</div><div class="line">&#125;</div><div class="line">copy</div><div class="line">- (void)setName:(NSString *)name</div><div class="line">&#123;</div><div class="line">    _name = [name copy];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>发现不一样的地方一个是强引用一个是copy，这会有什么影响呢？<br>我们再谈一下对象的copy是怎么实现的,通过系统的对象我们不难发现系统的对象大部分都遵守了一个协议<nscopying>.所以我们要自定义一个对象肯定也得遵守这个协议</nscopying></p>
+<ul>
+<li><p>先自定义一个对象(遵守NSCopying)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@interface person : NSObject&lt;NSCopying&gt;</div><div class="line">@property (nonatomic, strong) NSString *name;</div><div class="line">@property (nonatomic, strong) NSString *alias;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+</li>
+<li><p>copy的具体实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (id)copyWithZone:(NSZone *)zone</div><div class="line">&#123;</div><div class="line">    person * p = [person allocWithZone:zone];</div><div class="line">    // 中间给对象的属性赋值</div><div class="line">    p.name = self.name;</div><div class="line">    return p;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>我们通过一个例子来说明Setter不同到底有什么区别<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">// setter是strong</div><div class="line">    NSMutableString *string = [NSMutableString stringWithString:@&quot;tom&quot;];</div><div class="line">    person *p1 = [[person alloc] init];</div><div class="line">    p1.name = string;</div><div class="line">    NSLog(@&quot;%@&quot;,p1.name); //tom</div><div class="line">    [string appendString:@&quot;jack&quot;];</div><div class="line">    NSLog(@&quot;%@&quot;,p1.name); // tomjack</div><div class="line"></div><div class="line">    person *p2 = [p1 copy];</div><div class="line">    NSLog(@&quot;%@&quot;,p2.name); // tomjack</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">// setter是copy</div><div class="line">    NSMutableString *string = [NSMutableString stringWithString:@&quot;tom&quot;];</div><div class="line">    person *p1 = [[person alloc] init];</div><div class="line">    p1.name = string;</div><div class="line">    NSLog(@&quot;%@&quot;,p1.name); //tom</div><div class="line">    [string appendString:@&quot;jack&quot;];</div><div class="line">    NSLog(@&quot;%@&quot;,p1.name); // tom</div><div class="line"></div><div class="line">    person *p2 = [p1 copy];</div><div class="line">    NSLog(@&quot;%@&quot;,p2.name); // tom</div></pre></td></tr></table></figure>
+<ul>
+<li>一种错误的写法<code>@property (nonatomic, copy) NSMutableString *name;</code>(name的property属性的copy，对应肯定是不可变的，而又是NSMutableString对象，会给人误解，而且修改name的值肯定会crash)</li>
+<li>总结：对应的@property中的strong和copy是一样的，strong是直接引用地址(同一个对象)，而copy是把值赋值到一个新的内存地址中(非同一个对象)。</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/27/关于微信支付和支付宝/" itemprop="url">
                   关于微信支付和支付宝
                 </a>
@@ -706,7 +845,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -714,7 +853,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -723,7 +862,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

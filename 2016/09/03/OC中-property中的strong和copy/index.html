@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="NSUserDefaults,单例," />
+  <meta name="keywords" content="property,strong,copy," />
 
 
 
@@ -84,25 +84,22 @@
 
 
 
-<meta name="description" content="关于系统单例12// 系统单例同步数据[[NSUserDefaults standardUserDefaults] synchronize];
-上面这段代码是系统同中的代码接口，为啥要把这句代码给出来呢，熟悉一点设计模式的都知道自己写的接口最好是跟系统接口的写法类似，这样才方便别人调用你的接口，减少很多沟通成本.在这就不多说，举个例子就好。
+<meta name="description" content="OC中@property中的strong和copy之所以要单独拿一篇文章出来写这个肯定是这个东西比较特别。
 
-补充一点：系统单例(NSUserdefaults)不能">
+首先谈一下copy和strong对应的setter是怎么写的12345678910strong- (void)setName:(NSString *)name&amp;#123;    _name = name;&amp;#125;copy- (void)setName:(NSString *)name&amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Objective-c单例">
-<meta property="og:url" content="http://zlee.me/2016/08/25/Objective-c单例/index.html">
+<meta property="og:title" content="OC中@property中的strong和copy">
+<meta property="og:url" content="http://zlee.me/2016/09/03/OC中-property中的strong和copy/index.html">
 <meta property="og:site_name" content="张力的个人博客">
-<meta property="og:description" content="关于系统单例12// 系统单例同步数据[[NSUserDefaults standardUserDefaults] synchronize];
-上面这段代码是系统同中的代码接口，为啥要把这句代码给出来呢，熟悉一点设计模式的都知道自己写的接口最好是跟系统接口的写法类似，这样才方便别人调用你的接口，减少很多沟通成本.在这就不多说，举个例子就好。
+<meta property="og:description" content="OC中@property中的strong和copy之所以要单独拿一篇文章出来写这个肯定是这个东西比较特别。
 
-补充一点：系统单例(NSUserdefaults)不能">
-<meta property="og:updated_time" content="2016-09-02T07:24:10.000Z">
+首先谈一下copy和strong对应的setter是怎么写的12345678910strong- (void)setName:(NSString *)name&amp;#123;    _name = name;&amp;#125;copy- (void)setName:(NSString *)name&amp;">
+<meta property="og:updated_time" content="2016-09-03T07:27:28.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Objective-c单例">
-<meta name="twitter:description" content="关于系统单例12// 系统单例同步数据[[NSUserDefaults standardUserDefaults] synchronize];
-上面这段代码是系统同中的代码接口，为啥要把这句代码给出来呢，熟悉一点设计模式的都知道自己写的接口最好是跟系统接口的写法类似，这样才方便别人调用你的接口，减少很多沟通成本.在这就不多说，举个例子就好。
+<meta name="twitter:title" content="OC中@property中的strong和copy">
+<meta name="twitter:description" content="OC中@property中的strong和copy之所以要单独拿一篇文章出来写这个肯定是这个东西比较特别。
 
-补充一点：系统单例(NSUserdefaults)不能">
+首先谈一下copy和strong对应的setter是怎么写的12345678910strong- (void)setName:(NSString *)name&amp;#123;    _name = name;&amp;#125;copy- (void)setName:(NSString *)name&amp;">
 
 
 
@@ -123,9 +120,9 @@
 
 
 
-  <link rel="canonical" href="http://zlee.me/2016/08/25/Objective-c单例/"/>
+  <link rel="canonical" href="http://zlee.me/2016/09/03/OC中-property中的strong和copy/"/>
 
-  <title> Objective-c单例 | 张力的个人博客 </title>
+  <title> OC中@property中的strong和copy | 张力的个人博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -255,7 +252,7 @@
             
             
               
-                Objective-c单例
+                OC中@property中的strong和copy
               
             
           </h1>
@@ -267,8 +264,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-25T17:15:20+08:00" content="2016-08-25">
-              2016-08-25
+            <time itemprop="dateCreated" datetime="2016-09-03T15:26:28+08:00" content="2016-09-03">
+              2016-09-03
             </time>
           </span>
 
@@ -281,8 +278,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Objective-c/" itemprop="url" rel="index">
-                    <span itemprop="name">Objective-c</span>
+                  <a href="/categories/内存管理/" itemprop="url" rel="index">
+                    <span itemprop="name">内存管理</span>
                   </a>
                 </span>
 
@@ -297,8 +294,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/25/Objective-c单例/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/25/Objective-c单例/" itemprop="commentsCount"></span>
+                <a href="/2016/09/03/OC中-property中的strong和copy/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/03/OC中-property中的strong和copy/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -321,20 +318,26 @@
       
 
       
-        <h4 id="关于系统单例"><a href="#关于系统单例" class="headerlink" title="关于系统单例"></a>关于系统单例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// 系统单例同步数据</div><div class="line">[[NSUserDefaults standardUserDefaults] synchronize];</div></pre></td></tr></table></figure>
-<p>上面这段代码是系统同中的代码接口，为啥要把这句代码给出来呢，熟悉一点设计模式的都知道自己写的接口最好是跟系统接口的写法类似，这样才方便别人调用你的接口，减少很多沟通成本.在这就不多说，举个例子就好。</p>
-<blockquote>
-<p>补充一点：系统单例(NSUserdefaults)不能存放自定义对象，只能存放OC系统的对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">存值和取值都很简单</div><div class="line">单例取值</div><div class="line">NSDictionary * dic = [[NSUserDefaults standardUserDefaults] objectForKey:@&quot;user”];</div><div class="line">单例存值</div><div class="line">[[NSUserDefaults standardUserDefaults] setObject:dic forKey:@&quot;user&quot;];</div></pre></td></tr></table></figure></p>
-</blockquote>
-<h4 id="自定义单例"><a href="#自定义单例" class="headerlink" title="自定义单例"></a>自定义单例</h4><ul>
-<li><p>ARC实现单例</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">// gcd写法`推荐`</div><div class="line">+ (instancetype)sharedSingleton</div><div class="line">&#123;</div><div class="line">    static Singleton *singlenton =nil;</div><div class="line">    static dispatch_once_t onceToken;</div><div class="line">    dispatch_once(&amp;onceToken, ^&#123;</div><div class="line">        singlenton = [[Singleton alloc] init];</div><div class="line">    &#125;);</div><div class="line">    return singlenton;</div><div class="line">&#125;</div><div class="line">// 原生写法</div><div class="line">+ (instancetype)sharedSingleton</div><div class="line">&#123;</div><div class="line">    static Singleton *singlenton =nil;</div><div class="line">    if (!singlenton) &#123;</div><div class="line">        singlenton = [[Singleton alloc] init];</div><div class="line">    &#125;</div><div class="line">    return singlenton;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>MRC单例写法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">+ (instancetype)defaultSingleton</div><div class="line">&#123;</div><div class="line">    static Singleton * singlenton = nil;</div><div class="line">    if (!singlenton) &#123;</div><div class="line">        singlenton = [[Singleton alloc] init];</div><div class="line">    &#125;</div><div class="line">    return singlenton;</div><div class="line">&#125;</div><div class="line">//alloc</div><div class="line">+ (instancetype)allocWithZone:(struct _NSZone *)zone</div><div class="line">&#123;</div><div class="line">    if (!singlenton) &#123;</div><div class="line">        singlenton = [super allocWithZone:zone];</div><div class="line">    &#125;</div><div class="line">    return teacher;// 第一种写法</div><div class="line"></div><div class="line">&#125;</div><div class="line">//retain</div><div class="line">- (instancetype)retain</div><div class="line">&#123;</div><div class="line">    return self;</div><div class="line">&#125;</div><div class="line">//copy</div><div class="line">+ (id)copyWithZone:(struct _NSZone *)zone</div><div class="line">&#123;</div><div class="line">    return self;</div><div class="line">&#125;</div><div class="line">//release</div><div class="line">- (oneway void)release</div><div class="line">&#123;</div><div class="line">    // 这儿不能释放</div><div class="line">&#125;</div><div class="line">//autorelease</div><div class="line">- (instancetype)autorelease</div><div class="line">&#123;</div><div class="line">    return self;</div><div class="line">&#125;</div><div class="line">//retainCount</div><div class="line">- (NSUInteger)retainCount</div><div class="line">&#123;</div><div class="line">    return NSUIntegerMax;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        <h1 id="OC中-property中的strong和copy"><a href="#OC中-property中的strong和copy" class="headerlink" title="OC中@property中的strong和copy"></a>OC中@property中的strong和copy</h1><p>之所以要单独拿一篇文章出来写这个肯定是这个东西比较特别。</p>
+<ul>
+<li>首先谈一下copy和strong对应的setter是怎么写的<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">strong</div><div class="line">- (void)setName:(NSString *)name</div><div class="line">&#123;</div><div class="line">    _name = name;</div><div class="line">&#125;</div><div class="line">copy</div><div class="line">- (void)setName:(NSString *)name</div><div class="line">&#123;</div><div class="line">    _name = [name copy];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>需要什么功能只需要給这个类增加方法或者属性就好。</p>
+<p>发现不一样的地方一个是强引用一个是copy，这会有什么影响呢？<br>我们再谈一下对象的copy是怎么实现的,通过系统的对象我们不难发现系统的对象大部分都遵守了一个协议<nscopying>.所以我们要自定义一个对象肯定也得遵守这个协议</nscopying></p>
+<ul>
+<li><p>先自定义一个对象(遵守NSCopying)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@interface person : NSObject&lt;NSCopying&gt;</div><div class="line">@property (nonatomic, strong) NSString *name;</div><div class="line">@property (nonatomic, strong) NSString *alias;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+</li>
+<li><p>copy的具体实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (id)copyWithZone:(NSZone *)zone</div><div class="line">&#123;</div><div class="line">    person * p = [person allocWithZone:zone];</div><div class="line">    // 中间给对象的属性赋值</div><div class="line">    p.name = self.name;</div><div class="line">    return p;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>我们通过一个例子来说明Setter不同到底有什么区别<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">// setter是strong</div><div class="line">    NSMutableString *string = [NSMutableString stringWithString:@&quot;tom&quot;];</div><div class="line">    person *p1 = [[person alloc] init];</div><div class="line">    p1.name = string;</div><div class="line">    NSLog(@&quot;%@&quot;,p1.name); //tom</div><div class="line">    [string appendString:@&quot;jack&quot;];</div><div class="line">    NSLog(@&quot;%@&quot;,p1.name); // tomjack</div><div class="line"></div><div class="line">    person *p2 = [p1 copy];</div><div class="line">    NSLog(@&quot;%@&quot;,p2.name); // tomjack</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">// setter是copy</div><div class="line">    NSMutableString *string = [NSMutableString stringWithString:@&quot;tom&quot;];</div><div class="line">    person *p1 = [[person alloc] init];</div><div class="line">    p1.name = string;</div><div class="line">    NSLog(@&quot;%@&quot;,p1.name); //tom</div><div class="line">    [string appendString:@&quot;jack&quot;];</div><div class="line">    NSLog(@&quot;%@&quot;,p1.name); // tom</div><div class="line"></div><div class="line">    person *p2 = [p1 copy];</div><div class="line">    NSLog(@&quot;%@&quot;,p2.name); // tom</div></pre></td></tr></table></figure>
+<ul>
+<li>一种错误的写法<code>@property (nonatomic, copy) NSMutableString *name;</code>(name的property属性的copy，对应肯定是不可变的，而又是NSMutableString对象，会给人误解，而且修改name的值肯定会crash)</li>
+<li>总结：对应的@property中的strong和copy是一样的，strong是直接引用地址(同一个对象)，而copy是把值赋值到一个新的内存地址中(非同一个对象)。</li>
+</ul>
 
       
     </div>
@@ -357,9 +360,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/NSUserDefaults/" rel="tag">#NSUserDefaults</a>
+            <a href="/tags/property/" rel="tag">#property</a>
           
-            <a href="/tags/单例/" rel="tag">#单例</a>
+            <a href="/tags/strong/" rel="tag">#strong</a>
+          
+            <a href="/tags/copy/" rel="tag">#copy</a>
           
         </div>
       
@@ -368,17 +373,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/15/OC中__bridge/" rel="next" title="Objective-c中__bridge">
-                <i class="fa fa-chevron-left"></i> Objective-c中__bridge
+              <a href="/2016/08/27/关于微信支付和支付宝/" rel="next" title="关于微信支付和支付宝">
+                <i class="fa fa-chevron-left"></i> 关于微信支付和支付宝
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/27/关于微信支付和支付宝/" rel="prev" title="关于微信支付和支付宝">
-                关于微信支付和支付宝 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -404,8 +405,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/25/Objective-c单例/"
-           data-title="Objective-c单例" data-url="http://zlee.me/2016/08/25/Objective-c单例/">
+      <div class="ds-thread" data-thread-key="2016/09/03/OC中-property中的strong和copy/"
+           data-title="OC中@property中的strong和copy" data-url="http://zlee.me/2016/09/03/OC中-property中的strong和copy/">
       </div>
     
   </div>
@@ -496,7 +497,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于系统单例"><span class="nav-number">1.</span> <span class="nav-text">关于系统单例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义单例"><span class="nav-number">2.</span> <span class="nav-text">自定义单例</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#OC中-property中的strong和copy"><span class="nav-number">1.</span> <span class="nav-text">OC中@property中的strong和copy</span></a></li></ol></div>
             
           </div>
         </section>
